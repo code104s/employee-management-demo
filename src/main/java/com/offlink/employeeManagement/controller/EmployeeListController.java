@@ -63,7 +63,7 @@ public class EmployeeListController {
         employeeService.save(theEmployee);
 
         // use a redirect to prevent duplicate submissions
-        return  "redirect:/employee/list";
+        return  "redirect:/employees/list";
 
     }
 
