@@ -64,13 +64,15 @@
 
             <td>
                 <a th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.id})}"
-                   class="btn btn-info btn-sm">
+                   class="btn btn-info btn-sm"
+                   sec:authorize="hasRole('ADMIN')">
                     Update
                 </a>
 
                 <a  th:href="@{/employees/delete(employeeId=${tempEmployee.id})}"
                     class="btn btn-danger btn-sm"
-                    onclick="if (!(confirm('Xoa nhan vien nay?'))) return false">
+                    onclick="if (!(confirm('Xoa nhan vien nay?'))) return false"
+                    sec:authorize="hasRole('ADMIN')">
                     Delete
                 </a>
             </td>

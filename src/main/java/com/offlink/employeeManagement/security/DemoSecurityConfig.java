@@ -14,15 +14,15 @@ public class DemoSecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails twan = User.builder()
+        UserDetails twan = User.withDefaultPasswordEncoder()
                 .username("admin")
-                .password("{noop}123")
+                .password("123")
                 .roles("ADMIN")
                 .build();
 
-        UserDetails nv = User.builder()
+        UserDetails nv = User.withDefaultPasswordEncoder()
                 .username("employee")
-                .password("{noop}123")
+                .password("123")
                 .roles("EMPLOYEE")
                 .build();
 
@@ -31,9 +31,13 @@ public class DemoSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
-        http.authorizeHttpRequests(configuer ->
-                configuer
-                        .anyRequest().authenticated()
+        http.exceptionHandling(configurer ->
+                configurer
+                        .accessDeniedPage("/accessDenied")
+        )
+                .authorizeHttpRequests(configuer ->
+                        configuer
+                                .anyRequest().authenticated()
         )
                 .formLogin(form ->
                         form
